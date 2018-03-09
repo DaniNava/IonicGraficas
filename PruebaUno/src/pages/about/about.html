@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Graficar función 
+    </ion-title>
+  </ion-navbar>
+
+  <script src="js\mathmin.js"></script>
+  <script src="js\d3.js"></script>
+  <script src="js\functionplot.js"></script>
+
+  <style> 
+      input[type=text] {
+         width: 300px;
+      }
+      input {
+        padding: 6px;
+      }
+      body, html, input {
+        font-family: sans-serif;
+        font-size: 11pt;
+  
+      }
+      form {
+        margin: 20px 0;
+      }
+    </style>
+</ion-header>
+
+<ion-content>
+
+    <form id="form"> <!-- formulario para ingresar la ecuacion   -->
+      <label for="formula">Ingresa funcion:</label>
+      <input type="text" id="formula" value=" " />
+      <input type="submit" value="Graficar" />
+    </form>
+    
+    <div id="plot"></div>
+    
+    
+    <script>
+      function draw() {   
+        try {
+          functionPlot({
+            target: '#plot',
+            data: [{
+              fn: document.getElementById('formula').value,
+              sampler: 'builtIn',  // hara que function-plot use el evaluador math.js 
+              graphType: 'polyline'
+            }]
+          });
+        }
+        catch (err) {
+          console.log(err);
+          alert(err);
+        }
+      }
+    
+      document.getElementById('form').onsubmit = function (event) { // aplicacion de la funcion drafw
+        event.preventDefault();
+        draw();
+      };
+    
+      draw();
+    
+    </script>
+
+</ion-content>
